@@ -48,3 +48,13 @@ Prettier is configured at the repo root (`.prettierrc`). `eslint-config-prettier
 2. Prettier on staged JS/TS/JSON/MD/CSS files
 
 After `pnpm install`, the `prepare` script installs Git hooks automatically.
+
+### CI
+
+GitHub Actions runs lint and build on every pull request to `main` and on every push to `main` (see [`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
+
+- Job name: **Lint and Build** (status check used for branch protection)
+- Command: `turbo run lint build` across the monorepo (Turbo’s task graph + cache skip unchanged work)
+- Caching: pnpm store via `actions/setup-node`, Turbo local cache via `.turbo`
+
+Local hooks can be skipped with `--no-verify`; CI cannot — a failing lint or build fails the check.
