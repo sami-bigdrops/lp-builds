@@ -51,7 +51,7 @@ After `pnpm install`, the `prepare` script installs Git hooks automatically.
 
 ### CI
 
-GitHub Actions runs lint and build on every pull request to `main` and on every push to `main` (see [`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
+GitHub Actions runs lint and build on every pull request to `dev` or `main`, and on every push to those branches (see [`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
 
 - Job name: **Lint and Build** (status check used for branch protection)
 - Command: `turbo run lint build` across the monorepo (Turbo’s task graph + cache skip unchanged work)
