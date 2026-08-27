@@ -1,28 +1,51 @@
-# shadcn/ui monorepo template
+# Landing pages monorepo
 
-This is a Next.js monorepo template with shadcn/ui.
+Next.js monorepo for shared UI and landing pages, built with shadcn/ui and Tailwind CSS v4.
+
+## Structure
+
+| Path                         | Purpose                                          |
+| ---------------------------- | ------------------------------------------------ |
+| `apps/registry`              | Registry app (MVC layout + theme contract tests) |
+| `packages/ui`                | Shared shadcn components and `globals.css`       |
+| `packages/tailwind-config`   | Shared Tailwind preset + CSS-variable contract   |
+| `packages/eslint-config`     | Shared ESLint configs                            |
+| `packages/typescript-config` | Shared TypeScript configs                        |
 
 ## Adding components
 
-To add components to your app, run the following command at the root of your `registry` app:
+From the repo root, target the `registry` app:
 
 ```bash
 pnpm dlx shadcn@latest add button -c apps/registry
 ```
 
-This will place the UI components in the `packages/ui/src/components` directory.
+UI components land in `packages/ui/src/components`.
 
 ## Using components
-
-To use the components in your app, import them from the `ui` package:
 
 ```tsx
 import { Button } from "@workspace/ui/components/button"
 ```
 
-## Code quality
+## Theming
 
-Linting and formatting are enforced from the repo root across all workspaces.
+Shared structural theme (spacing, shadows, breakpoints, durations) and the Shadcn CSS-variable bridge live in `@workspace/tailwind-config`. Brand colors and `--radius` are set per app on `:root` as **hex** values. Fonts are wired with `next/font` (`--font-sans`, `--font-mono`). There is no dark/light toggle — one static theme per landing page.
+
+`packages/ui/src/styles/globals.css` already imports the shared preset and contract. Full wiring guide: [`packages/tailwind-config/README.md`](packages/tailwind-config/README.md).
+
+## Registry app (MVC)
+
+`apps/registry` follows a simple MVC split:
+
+| Layer      | Location                                          |
+| ---------- | ------------------------------------------------- |
+| Model      | `models/` — theme contract helpers and validation |
+| Controller | `controllers/` — page data                        |
+| View       | `views/` — presentational UI                      |
+| Route      | `app/` — thin Next.js entry points                |
+
+## Code quality
 
 | Command             | Description                                |
 | ------------------- | ------------------------------------------ |
@@ -30,6 +53,8 @@ Linting and formatting are enforced from the repo root across all workspaces.
 | `pnpm lint:fix`     | Auto-fix ESLint issues where possible      |
 | `pnpm format`       | Format the repo with Prettier              |
 | `pnpm format:check` | Check formatting without writing           |
+| `pnpm test`         | Run Vitest (registry theme contract tests) |
+| `pnpm typecheck`    | Typecheck workspaces via Turbo             |
 
 Shared ESLint lives in `@workspace/eslint-config`:
 

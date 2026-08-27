@@ -1,0 +1,11 @@
+{
+  "name": "@workspace/tailwind-config",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./preset.css": "./src/preset.css",
+    "./contract.css": "./src/contract.css",
+    "./tokens.example.css": "./src/tokens.example.css"
+  }
+}
