@@ -10,11 +10,11 @@ To add components to your app, run the following command at the root of your `re
 pnpm dlx shadcn@latest add button -c apps/registry
 ```
 
-This will place the ui components in the `packages/ui/src/components` directory.
+This will place the UI components in the `packages/ui/src/components` directory.
 
 ## Using components
 
-To use the components in your app, import them from the `ui` package.
+To use the components in your app, import them from the `ui` package:
 
 ```tsx
 import { Button } from "@workspace/ui/components/button"
@@ -53,8 +53,24 @@ After `pnpm install`, the `prepare` script installs Git hooks automatically.
 
 GitHub Actions runs lint and build on every pull request to `dev` or `main`, and on every push to those branches (see [`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
 
-- Job name: **Lint and Build** (status check used for branch protection)
-- Command: `turbo run lint build` across the monorepo (Turbo’s task graph + cache skip unchanged work)
-- Caching: pnpm store via `actions/setup-node`, Turbo local cache via `.turbo`
+| Detail   | Value                                                               |
+| -------- | ------------------------------------------------------------------- |
+| Job name | **Lint and Build** (required status check for branch protection)    |
+| Command  | `turbo run lint build` across the monorepo                          |
+| Caching  | pnpm store via `actions/setup-node`; Turbo local cache via `.turbo` |
 
-Local hooks can be skipped with `--no-verify`; CI cannot — a failing lint or build fails the check.
+Local hooks can be skipped with `--no-verify`. CI cannot — a failing lint or build fails the check.
+
+### Branch protection
+
+`main` is protected by a GitHub ruleset so merges stay gated on review workflow and CI:
+
+| Rule                         | Setting                                    |
+| ---------------------------- | ------------------------------------------ |
+| Direct pushes                | Blocked — changes must go through a PR     |
+| Required status check        | **Lint and Build** must pass               |
+| Branch up to date            | Required before merge                      |
+| Approving reviews            | Optional for now (solo); raise to 1+ later |
+| Force pushes / branch delete | Restricted on `main`                       |
+
+A PR with a red **Lint and Build** check cannot be merged. Merge only when the check is green and the branch is up to date with `main`.
