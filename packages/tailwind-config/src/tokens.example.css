@@ -1,12 +1,11 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-@import "@workspace/tailwind-config/preset.css";
-@import "@workspace/tailwind-config/contract.css";
-
-@source "../../../apps/**/*.{ts,tsx}";
-@source "../../../components/**/*.{ts,tsx}";
-@source "../**/*.{ts,tsx}";
+/*
+ * Example :root contract for a landing page.
+ * Copy into the app's globals.css (or theme.css) and replace hex values as needed.
+ * Prefer #RRGGBB or #RRGGBBAA — do not use oklch/hsl for brand tokens in this monorepo.
+ *
+ * Fonts: set --font-sans / --font-mono on <html> via next/font in layout.tsx
+ * (variable: "--font-sans"), not as hard-coded families here.
+ */
 
 :root {
   --background: #ffffff;
@@ -41,13 +40,4 @@
   --sidebar-accent-foreground: #171717;
   --sidebar-border: #e5e5e5;
   --sidebar-ring: #a3a3a3;
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
 }
