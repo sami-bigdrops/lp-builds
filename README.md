@@ -4,13 +4,14 @@ Next.js monorepo for shared UI and landing pages, built with shadcn/ui and Tailw
 
 ## Structure
 
-| Path                         | Purpose                                          |
-| ---------------------------- | ------------------------------------------------ |
-| `apps/registry`              | Registry app (MVC layout + theme contract tests) |
-| `packages/ui`                | Shared shadcn components and `globals.css`       |
-| `packages/tailwind-config`   | Shared Tailwind preset + CSS-variable contract   |
-| `packages/eslint-config`     | Shared ESLint configs                            |
-| `packages/typescript-config` | Shared TypeScript configs                        |
+| Path                         | Purpose                                           |
+| ---------------------------- | ------------------------------------------------- |
+| `apps/registry`              | Registry app (MVC layout + theme contract tests)  |
+| `apps/demo-landing`          | Minimal landing page validating preset + contract |
+| `packages/ui`                | Shared shadcn components and `globals.css`        |
+| `packages/tailwind-config`   | Shared Tailwind preset + CSS-variable contract    |
+| `packages/eslint-config`     | Shared ESLint configs                             |
+| `packages/typescript-config` | Shared TypeScript configs                         |
 
 ## Adding components
 
@@ -32,7 +33,16 @@ import { Button } from "@workspace/ui/components/button"
 
 Shared structural theme (spacing, shadows, breakpoints, durations) and the Shadcn CSS-variable bridge live in `@workspace/tailwind-config`. Brand colors and `--radius` are set per app on `:root` as **hex** values. Fonts are wired with `next/font` (`--font-sans`, `--font-mono`). There is no dark/light toggle — one static theme per landing page.
 
-`packages/ui/src/styles/globals.css` already imports the shared preset and contract. Full wiring guide: [`packages/tailwind-config/README.md`](packages/tailwind-config/README.md).
+`packages/ui/src/styles/globals.css` already imports the shared preset and contract for apps that use the default neutral theme. Landing pages with their own brand colors should follow `apps/demo-landing` (import preset + contract in app CSS). Full wiring guide: [`packages/tailwind-config/README.md`](packages/tailwind-config/README.md).
+
+## Demo landing page
+
+`apps/demo-landing` is a throwaway page that proves the contract works end-to-end: hero + content section, Shadcn `Button`, preset spacing/shadows, and page-owned hex tokens.
+
+```bash
+pnpm --filter demo-landing dev
+pnpm --filter demo-landing test
+```
 
 ## Registry app (MVC)
 

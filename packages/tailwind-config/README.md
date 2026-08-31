@@ -83,6 +83,32 @@ Apply `sans.variable` on `<html>` (and optionally `--font-mono`).
 
 5. Do **not** add a `.dark` block or `next-themes` for landing pages.
 
+## Contract validation (`apps/demo-landing`)
+
+A minimal throwaway app exercises the preset + contract end-to-end. Run it with:
+
+```bash
+pnpm --filter demo-landing dev
+pnpm --filter demo-landing test
+```
+
+Each landing page should follow the same pattern as `apps/demo-landing/app/globals.css`:
+
+- Import `preset.css` + `contract.css` directly (do **not** import `@workspace/ui/globals.css`, which ships default neutral `:root` tokens).
+- Define this page's hex `:root` values in the app CSS entry.
+- Map fonts with `next/font` on `<html>`.
+- Use preset utilities (`py-section`, `px-gutter-lg`, `shadow-md`, etc.) for layout — not hardcoded spacing/shadow classes.
+
+### Gaps found during validation
+
+| Gap                                                        | Status / workaround                                                       |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------- |
+| Tailwind v4 has no `tailwind.config` preset extend         | Use CSS `@import` of `preset.css` + `contract.css` (documented above)     |
+| `@workspace/ui/globals.css` bundles default `:root` colors | Landing pages with custom brands import preset/contract directly          |
+| Per-app `@source` required when not using ui `globals.css` | Add `@source` for the app and `packages/ui` component paths               |
+| Shared `Button` still includes `dark:` variant classes     | Harmless with single-theme pages; cosmetic only                           |
+| No sub-`gutter` spacing token for tight stacks             | Use `gap-gutter` or section tokens; add `--spacing-stack` later if needed |
+
 ## Exports
 
 | Export                                          | Path                    |
