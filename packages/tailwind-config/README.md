@@ -44,10 +44,13 @@ Apply `sans.variable` on `<html>` (and optionally `--font-mono`).
 
 ## Wire up a new landing page
 
-1. Depend on the packages you need:
+Reference implementation: `apps/demo-lp` (issue #5 validation page).
+
+1. Depend on the packages you need. With an **app-owned** `globals.css`, also add the CSS packages those imports resolve:
 
    ```bash
-   pnpm add @workspace/tailwind-config @workspace/ui --filter your-app
+   pnpm add @workspace/tailwind-config @workspace/ui tw-animate-css shadcn --filter your-app
+   pnpm add -D tailwindcss @tailwindcss/postcss --filter your-app
    ```
 
 2. In the app CSS entry (e.g. `app/globals.css`):
@@ -58,6 +61,10 @@ Apply `sans.variable` on `<html>` (and optionally `--font-mono`).
    @import "shadcn/tailwind.css";
    @import "@workspace/tailwind-config/preset.css";
    @import "@workspace/tailwind-config/contract.css";
+
+   /* Scan app UI + shared components so utilities are generated */
+   @source "../../../packages/ui/src/**/*.{ts,tsx}";
+   @source "./**/*.{ts,tsx}";
 
    /* Paste and customize from tokens.example.css */
    :root {
@@ -82,6 +89,14 @@ Apply `sans.variable` on `<html>` (and optionally `--font-mono`).
 4. Set fonts with `next/font` on `<html>` as above.
 
 5. Do **not** add a `.dark` block or `next-themes` for landing pages.
+
+6. Do **not** add a classic `tailwind.config.js` — extend the shared foundation by importing `preset.css` / `contract.css` only.
+
+## Lessons from #5 (`apps/demo-lp`)
+
+- App-owned `globals.css` needs `@source` for both the app and `packages/ui`, or Button/classes from `@workspace/ui` will miss generated utilities.
+- `tw-animate-css`, `shadcn`, and `tailwindcss` must be direct deps of the app when CSS is not loaded solely via `@workspace/ui/globals.css` (pnpm does not hoist them automatically).
+- Retheme is proven by swapping `:root` hex values only; keep an alternate palette commented in the app CSS for a quick check.
 
 ## Exports
 
