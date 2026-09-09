@@ -1,0 +1,98 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@workspace/tailwind-config/preset.css";
+@import "@workspace/tailwind-config/contract.css";
+
+@source "../../../packages/ui/src/**/*.{ts,tsx}";
+@source "./**/*.{ts,tsx}";
+
+/*
+ * Brand tokens for demo-lp (teal). Distinct from packages/ui defaults
+ * so this app proves per-page :root overrides.
+ *
+ * Retheme check: replace the active :root block with the commented
+ * alternate palette below — no TSX changes required.
+ */
+:root {
+  --background: #f0fdfa;
+  --foreground: #134e4a;
+  --card: #ffffff;
+  --card-foreground: #134e4a;
+  --popover: #ffffff;
+  --popover-foreground: #134e4a;
+  --primary: #0f766e;
+  --primary-foreground: #f0fdfa;
+  --secondary: #ccfbf1;
+  --secondary-foreground: #115e59;
+  --muted: #ccfbf1;
+  --muted-foreground: #0f766e;
+  --accent: #99f6e4;
+  --accent-foreground: #134e4a;
+  --destructive: #dc2626;
+  --border: #99f6e4;
+  --input: #99f6e4;
+  --ring: #14b8a6;
+  --chart-1: #0f766e;
+  --chart-2: #14b8a6;
+  --chart-3: #2dd4bf;
+  --chart-4: #5eead4;
+  --chart-5: #99f6e4;
+  --radius: 0.625rem;
+  --sidebar: #f0fdfa;
+  --sidebar-foreground: #134e4a;
+  --sidebar-primary: #0f766e;
+  --sidebar-primary-foreground: #f0fdfa;
+  --sidebar-accent: #ccfbf1;
+  --sidebar-accent-foreground: #115e59;
+  --sidebar-border: #99f6e4;
+  --sidebar-ring: #14b8a6;
+}
+
+/*
+ * Alternate palette (slate / amber) — swap with :root above to retheme.
+ *
+ * :root {
+ *   --background: #fffbeb;
+ *   --foreground: #1c1917;
+ *   --card: #ffffff;
+ *   --card-foreground: #1c1917;
+ *   --popover: #ffffff;
+ *   --popover-foreground: #1c1917;
+ *   --primary: #d97706;
+ *   --primary-foreground: #fffbeb;
+ *   --secondary: #fef3c7;
+ *   --secondary-foreground: #92400e;
+ *   --muted: #fef3c7;
+ *   --muted-foreground: #a16207;
+ *   --accent: #fde68a;
+ *   --accent-foreground: #1c1917;
+ *   --destructive: #dc2626;
+ *   --border: #fcd34d;
+ *   --input: #fcd34d;
+ *   --ring: #f59e0b;
+ *   --chart-1: #d97706;
+ *   --chart-2: #f59e0b;
+ *   --chart-3: #fbbf24;
+ *   --chart-4: #fcd34d;
+ *   --chart-5: #fde68a;
+ *   --radius: 0.625rem;
+ *   --sidebar: #fffbeb;
+ *   --sidebar-foreground: #1c1917;
+ *   --sidebar-primary: #d97706;
+ *   --sidebar-primary-foreground: #fffbeb;
+ *   --sidebar-accent: #fef3c7;
+ *   --sidebar-accent-foreground: #92400e;
+ *   --sidebar-border: #fcd34d;
+ *   --sidebar-ring: #f59e0b;
+ * }
+ */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

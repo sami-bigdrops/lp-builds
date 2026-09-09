@@ -4,13 +4,14 @@ Next.js monorepo for shared UI and landing pages, built with shadcn/ui and Tailw
 
 ## Structure
 
-| Path                         | Purpose                                          |
-| ---------------------------- | ------------------------------------------------ |
-| `apps/registry`              | Registry app (MVC layout + theme contract tests) |
-| `packages/ui`                | Shared shadcn components and `globals.css`       |
-| `packages/tailwind-config`   | Shared Tailwind preset + CSS-variable contract   |
-| `packages/eslint-config`     | Shared ESLint configs                            |
-| `packages/typescript-config` | Shared TypeScript configs                        |
+| Path                         | Purpose                                                       |
+| ---------------------------- | ------------------------------------------------------------- |
+| `apps/registry`              | Registry app (MVC layout + theme contract tests)              |
+| `apps/demo-lp`               | Minimal LP validating shared preset + per-page token contract |
+| `packages/ui`                | Shared shadcn components and `globals.css`                    |
+| `packages/tailwind-config`   | Shared Tailwind preset + CSS-variable contract                |
+| `packages/eslint-config`     | Shared ESLint configs                                         |
+| `packages/typescript-config` | Shared TypeScript configs                                     |
 
 ## Adding components
 
