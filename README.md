@@ -4,13 +4,13 @@ Next.js monorepo for shared UI and landing pages, built with shadcn/ui and Tailw
 
 ## Structure
 
-| Path                         | Purpose                                          |
-| ---------------------------- | ------------------------------------------------ |
-| `apps/registry`              | Registry app (MVC layout + theme contract tests) |
-| `packages/ui`                | Shared shadcn components and `globals.css`       |
-| `packages/tailwind-config`   | Shared Tailwind preset + CSS-variable contract   |
-| `packages/eslint-config`     | Shared ESLint configs                            |
-| `packages/typescript-config` | Shared TypeScript configs                        |
+| Path                         | Purpose                                                          |
+| ---------------------------- | ---------------------------------------------------------------- |
+| `apps/registry`              | Section showcase (sidebar, preview, code) + theme contract tests |
+| `packages/ui`                | Shared shadcn components and `globals.css`                       |
+| `packages/tailwind-config`   | Shared Tailwind preset + CSS-variable contract                   |
+| `packages/eslint-config`     | Shared ESLint configs                                            |
+| `packages/typescript-config` | Shared TypeScript configs                                        |
 
 ## Adding components
 
@@ -36,14 +36,16 @@ Shared structural theme (spacing, shadows, breakpoints, durations) and the Shadc
 
 ## Registry app (MVC)
 
-`apps/registry` follows a simple MVC split:
+`apps/registry` is the internal section showcase: sidebar navigation, live preview, syntax-highlighted source with copy, and usage notes. It follows a simple MVC split:
 
-| Layer      | Location                                          |
-| ---------- | ------------------------------------------------- |
-| Model      | `models/` — theme contract helpers and validation |
-| Controller | `controllers/` — page data                        |
-| View       | `views/` — presentational UI                      |
-| Route      | `app/` — thin Next.js entry points                |
+| Layer      | Location                                                                       |
+| ---------- | ------------------------------------------------------------------------------ |
+| Model      | `models/` — theme contract helpers; `sections-catalog.ts` for showcase entries |
+| Controller | `controllers/` — page data                                                     |
+| View       | `views/` — shell, preview, code block, empty state                             |
+| Route      | `app/(showcase)/` — `/`, `/sections`, `/sections/[slug]`                       |
+
+To register a new section, add an entry to `apps/registry/models/sections-catalog.ts`. The dynamic `[slug]` route picks it up — no shell or routing changes required.
 
 ## Code quality
 

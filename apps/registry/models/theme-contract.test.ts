@@ -104,12 +104,29 @@ describe("shared Tailwind foundation (current task)", () => {
 })
 
 describe("registry MVC home controller", () => {
-  it("exposes contract metadata for the home view", async () => {
+  it("exposes showcase home metadata", async () => {
     const { getHomePageModel } = await import("@/controllers/home-controller")
     const model = getHomePageModel()
 
     expect(model.title).toBeTruthy()
-    expect(model.contractTokenCount).toBeGreaterThan(0)
-    expect(model.sampleTokens.length).toBeGreaterThan(0)
+    expect(model.description).toBeTruthy()
+    expect(model.sectionsHref).toBe("/sections")
+    expect(typeof model.isEmpty).toBe("boolean")
+  })
+})
+
+describe("sections catalog controller", () => {
+  it("starts with an empty catalog and resolves nav items", async () => {
+    const {
+      listSections,
+      getSectionNavItems,
+      getSectionsIndexModel,
+      getSectionBySlug,
+    } = await import("@/controllers/sections-controller")
+
+    expect(listSections()).toEqual([])
+    expect(getSectionNavItems()).toEqual([])
+    expect(getSectionsIndexModel().isEmpty).toBe(true)
+    expect(getSectionBySlug("navbar")).toBeUndefined()
   })
 })

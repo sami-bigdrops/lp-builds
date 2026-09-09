@@ -1,4 +1,4 @@
-import { getHomePageModel } from "@/controllers/home-controller"
+import { getHomePageModel } from "@/controllers/sections-controller"
 import { HomeView } from "@/views/home-view"
 
 export default function Page() {
